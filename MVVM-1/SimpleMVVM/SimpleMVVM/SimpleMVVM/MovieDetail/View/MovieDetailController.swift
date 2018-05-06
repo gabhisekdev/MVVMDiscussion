@@ -9,7 +9,7 @@
 import UIKit
 
 class MovieDetailController: UIViewController {
-    
+
     @IBOutlet weak var movieNameLabel: UILabel!
     @IBOutlet weak var moviePosterImageView: UIImageView!
     @IBOutlet weak var directorNameLabel: UILabel!
@@ -26,7 +26,7 @@ class MovieDetailController: UIViewController {
         viewModel.viewDidLoad()
         setUpUI()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
