@@ -42,9 +42,9 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Please allow location access to fetch tasty resturants nearby.</string>
+	<string>Please allow location access to fetch nearby attractive places for you.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Please allow location access to fetch tasty resturants nearby.</string>
+	<string>Please allow location access to fetch nearby attractive places for you.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

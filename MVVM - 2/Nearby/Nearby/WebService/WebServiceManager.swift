@@ -36,11 +36,12 @@ class WebServiceManager: NSObject {
     case .GET:
       request.httpMethod = "GET"
       
-      if parameter != nil{
+      if parameter != nil {
         do {
           request.httpBody = try JSONSerialization.data(withJSONObject: parameter as Any, options: .prettyPrinted)
         } catch let error {
           print(error.localizedDescription)
+            return
         }
       }
       
@@ -70,5 +71,4 @@ class WebServiceManager: NSObject {
     
   }
   
-
 }
