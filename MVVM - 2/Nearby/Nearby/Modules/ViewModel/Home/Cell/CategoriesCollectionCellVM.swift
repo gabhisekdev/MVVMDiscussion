@@ -10,26 +10,36 @@ import Foundation
 
 class CategoriesCollectionCellVM: TableCollectionCellVMRepresentable {
     
+    // Output
+    var title: String = ""
     var numberOfItems: Int = 0
-    var cellTapped: (IndexPath)->() = { _ in }
+    
+    // Events
+    var cellSelected: (IndexPath)->() = { _ in }
     private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
     
     init() {
         prepareDataSource()
+        configureOutput()
     }
     
     private func prepareDataSource() {
         for type in PlaceType.allPlaceType() {
-            dataSource.append(ImageAndLabelCollectionCellVM(dataModel: ImageAndLabelCollectionCellDataModel(name: type.displayText(), imageUrl: type.iconUrl())))
+            dataSource.append(ImageAndLabelCollectionCellVM(dataModel: ImageAndLabelCollectionCellModel(name: type.displayText(), imageUrl: type.iconUrl())))
         }
+    }
+    
+    private func configureOutput() {
+        title = "Want to be more specific"
+        numberOfItems = dataSource.count
     }
     
     func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM {
        return dataSource[indexPath.item]
     }
     
-    func cellPressed(indexPath: IndexPath) {
-        cellTapped(indexPath)
+    func cellSelected(indexPath: IndexPath) {
+        cellSelected(indexPath)
     }
     
 }

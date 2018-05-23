@@ -16,11 +16,7 @@ class PlaceView: UIView {
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    var viewModel: PlaceViewVM! {
-        didSet {
-            setUpUI()
-        }
-    }
+    private var viewModel: PlaceViewVM!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,9 +37,16 @@ class PlaceView: UIView {
         addSubview(view)
     }
     
+    func preparePlaceView(viewModel: PlaceViewVM) {
+        self.viewModel = viewModel
+        setUpUI()
+    }
+    
     private func setUpUI() {
+        placeNameLabel.text = viewModel.name
+        distanceLabel.text = String(format: "%.2f mi", viewModel.distance)
         placeImageView.kf.indicatorType = IndicatorType.activity
-        placeImageView.kf.setImage(with: URL(string: viewModel.placeImageUrl), placeholder: UIImage(named : "resturantPlaceHolder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+        placeImageView.kf.setImage(with: URL(string: viewModel.placeImageUrl), placeholder: UIImage(named : "PlacesPlaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
         })
     }
     

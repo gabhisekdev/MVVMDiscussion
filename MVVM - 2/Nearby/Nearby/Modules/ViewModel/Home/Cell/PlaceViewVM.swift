@@ -19,7 +19,7 @@ protocol PlaceViewVMRepresentable {
     func placesViewPressed()
     
     // Event
-    var placesViewTapped: () -> () { get }
+    var placesViewSelected: () -> () { get }
 }
 
 
@@ -33,18 +33,19 @@ class PlaceViewVM: PlaceViewVMRepresentable {
     private var place: Place!
     
     // Event
-    var placesViewTapped: () -> () = { }
+    var placesViewSelected: () -> () = { }
     
     init(place: Place) {
         self.place = place
         placeImageUrl = place.imageURL ?? ""
         name = place.name!
         let currentLocation = CLLocation(latitude: LocationManager.sharedManager.latitude, longitude: LocationManager.sharedManager.longitude)
-        distance = place.location?.distance(from: currentLocation) ?? 0.0
+        guard let distance = place.location?.distance(from: currentLocation) else { return }
+        self.distance = distance/1609.344
     }
     
     func placesViewPressed() {
-        placesViewTapped()
+        placesViewSelected()
     }
     
 }

@@ -10,7 +10,7 @@ import UIKit
 
 class CollectionTableCell: ReusableTableViewCell {
     
-    @IBOutlet weak var titileLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
     var viewModel: TableCollectionCellVMRepresentable!
@@ -31,12 +31,14 @@ class CollectionTableCell: ReusableTableViewCell {
     private func setUpUI() {
         collectionView.dataSource = self
         collectionView.delegate = self
+        ImageAndLabelCollectionCell.registerWithCollectionView(collectionView)
+        titleLabel.text = viewModel.title
     }
     
 }
 
 // MARK: UICollectionViewDelegate and UICollectionViewDatasource
-extension CollectionTableCell: UICollectionViewDataSource, UICollectionViewDelegate {
+extension CollectionTableCell: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfItems
@@ -44,12 +46,16 @@ extension CollectionTableCell: UICollectionViewDataSource, UICollectionViewDeleg
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageAndLabelCollectionCell", for: indexPath) as! ImageAndLabelCollectionCell
-        cell.viewModel = viewModel.viewModelForCell(indexPath: indexPath)
+        cell.prepareCell(viewModel: viewModel.viewModelForCell(indexPath: indexPath))
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        viewModel.cellPressed(indexPath: indexPath)
+        viewModel.cellSelected(indexPath: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (UIScreen.main.bounds.width - 120)/CGFloat(viewModel.numberOfItems), height: collectionView.frame.size.height)
     }
     
 }

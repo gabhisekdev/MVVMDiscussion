@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Enum to distinguish different home cell types
 enum HomeTableCellType {
     case pagingCell(model: PaginationCellVM)
     case categoriesCell(model: TableCollectionCellVMRepresentable)
@@ -18,8 +19,8 @@ class HomeViewModel {
     
     private var tableDataSource: [HomeTableCellType] = [HomeTableCellType]()
     var viewDidLoad: ()->() = {}
-    var placeTapped: (Place)->() = { _ in }
-    var categoryTapped: (PlaceType)->() = { _ in }
+    var placeSelected: (Place)->() = { _ in }
+    var categorySelected: (PlaceType)->() = { _ in }
     var reloadTable: ()->() = { }
     var numberOfRows = 0
     
@@ -32,16 +33,23 @@ class HomeViewModel {
         }
     }
     
+    func refreshScreen() {
+        tableDataSource.removeAll()
+        self.getAppData(completion: { [weak self] in
+            self?.prepareTableDataSource()
+            self?.reloadTable()
+        })
+    }
+    
     private func getAppData(completion: @escaping ()->()) {
         //Show the loader
         let allPlaces = PlaceType.allPlaceType()
-        for (index,placeType) in allPlaces.enumerated() {
-            PlaceWebService().getPlaceList(placeType: placeType) { (resturantList, error) in
-                if resturantList != nil { AppData.sharedData.appData+=resturantList! }
-                if index == allPlaces.count - 1 {
-                    //Hide the loader
-                    completion()
-                }
+        var dataReceivedCount = 0
+        for placeType in allPlaces {
+            PlaceWebService().getPlaceList(placeType: placeType) { (placeList, error) in
+                if placeList != nil { AppData.sharedData.allPlaces+=placeList! }
+                dataReceivedCount+=1
+                if dataReceivedCount == allPlaces.count { completion() }
             }
         }
     }
@@ -59,28 +67,28 @@ class HomeViewModel {
         places.append(contentsOf: Helper.getTopPlace(paceType: .cafe, topPlacesCount: 1))
         places.append(contentsOf: Helper.getTopPlace(paceType: .nightClub, topPlacesCount: 1))
         places.append(contentsOf: Helper.getTopPlace(paceType: .atm, topPlacesCount: 1))
-        let placeTapped: (Place)->() = { [weak self] place in
+        let placeSelected: (Place)->() = { [weak self] place in
             // Show place detail
-            self?.placeTapped(place)
+            self?.placeSelected(place)
         }
-        return HomeTableCellType.pagingCell(model: PaginationCellVM(data: places, placeTapped: placeTapped))
+        return HomeTableCellType.pagingCell(model: PaginationCellVM(data: places, placeSelected: placeSelected))
     }
     
     private func viewModelForCategoriesCell()->HomeTableCellType {
         let categorieVM = CategoriesCollectionCellVM()
-        categorieVM.cellTapped = { [weak self] indexPath in
-            self?.categoryTapped(PlaceType.allPlaceType()[indexPath.row])
+        categorieVM.cellSelected = { [weak self] indexPath in
+            self?.categorySelected(PlaceType.allPlaceType()[indexPath.row])
         }
-        return HomeTableCellType.categoriesCell(model: CategoriesCollectionCellVM())
+        return HomeTableCellType.categoriesCell(model: categorieVM)
     }
     
     private func viewModelForPlaces()->[HomeTableCellType] {
         var cellTypes = [HomeTableCellType]()
         for type in PlaceType.allPlaceType() {
             let topPlaces = Helper.getTopPlace(paceType: type, topPlacesCount: 3)
-            let resturantCollectionCellVM = PlacesCollectionCellVM(dataModel: topPlaces)
-            resturantCollectionCellVM.cellTapped = { [weak self] indexPath in
-                self?.placeTapped(topPlaces[indexPath.item])
+            let resturantCollectionCellVM = PlacesCollectionCellVM(dataModel: PlacesCollectionCellModel(places: topPlaces, title: type.homeCellTitleText()))
+            resturantCollectionCellVM.cellSelected = { [weak self] indexPath in
+                self?.placeSelected(topPlaces[indexPath.item])
             }
             cellTypes.append(HomeTableCellType.placesCell(model: resturantCollectionCellVM))
         }

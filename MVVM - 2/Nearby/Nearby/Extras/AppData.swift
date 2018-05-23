@@ -11,6 +11,6 @@ import Foundation
 class AppData {
     
     static let sharedData = AppData()
-    var appData = [Place]()
+    var allPlaces = [Place]()
     
 }

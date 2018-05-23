@@ -8,20 +8,20 @@
 
 import Foundation
 
-struct ImageAndLabelCollectionCellDataModel {
+struct ImageAndLabelCollectionCellModel {
     var name: String = ""
     var imageUrl: String = ""
 }
 
 class ImageAndLabelCollectionCellVM {
     
-    private var dataModel: ImageAndLabelCollectionCellDataModel!
+    private var dataModel: ImageAndLabelCollectionCellModel!
     
     // Output
     var imageURL: String!
     var text: String!
     
-    init(dataModel: ImageAndLabelCollectionCellDataModel) {
+    init(dataModel: ImageAndLabelCollectionCellModel) {
         self.dataModel = dataModel
         configureOutput()
     }

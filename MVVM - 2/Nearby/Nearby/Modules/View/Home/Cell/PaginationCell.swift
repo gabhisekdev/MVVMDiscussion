@@ -26,13 +26,24 @@ class PaginationCell: ReusableTableViewCell {
     
     func prepareCell(viewModel: PaginationCellVM) {
         self.viewModel = viewModel
+        setUpUI()
+    }
+    
+    private func setUpUI() {
+        configureScrollView()
+        configurePaginationIndicator()
+        titleLabel.text = viewModel.title
     }
     
     private func configureScrollView() {
+        pagingScrollView.isPagingEnabled = true
+        pagingScrollView.isScrollEnabled = true
+        pagingScrollView.contentSize = CGSize(width: pagingScrollView.frame.size.width * CGFloat(viewModel.numberOfPages), height: pagingScrollView.frame.size.height)
+
         for i in 0..<viewModel.numberOfPages {
             let placeView = PlaceView()
             placeView.frame = CGRect(x: CGFloat(i)*pagingScrollView.frame.width, y: 0, width: pagingScrollView.frame.width, height: pagingScrollView.frame.height)
-            placeView.viewModel = viewModel.viewModelForPlaceView(position: i)
+            placeView.preparePlaceView(viewModel: viewModel.viewModelForPlaceView(position: i))
             pagingScrollView.addSubview(placeView)
         }
     }
@@ -45,7 +56,5 @@ class PaginationCell: ReusableTableViewCell {
 
 // MARK: UIScrollViewDelegate
 extension PaginationCell: UIScrollViewDelegate {
-    
-    
     
 }

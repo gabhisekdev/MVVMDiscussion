@@ -23,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KBD-85-XFg">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KBD-85-XFg">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ezg-0e-yKY">
@@ -56,7 +56,6 @@
                 <constraint firstItem="Ezg-0e-yKY" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="QK9-ed-fDF"/>
                 <constraint firstItem="vCL-98-irl" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="Uwb-as-z7r"/>
                 <constraint firstItem="KBD-85-XFg" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="Vsf-gA-zlf"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ezg-0e-yKY" secondAttribute="bottom" constant="13" id="azV-bi-fwP"/>
                 <constraint firstItem="vCL-98-irl" firstAttribute="centerY" secondItem="vUN-kp-3ea" secondAttribute="centerY" id="jxb-jN-E3E"/>
                 <constraint firstItem="Ezg-0e-yKY" firstAttribute="top" secondItem="KBD-85-XFg" secondAttribute="bottom" constant="12" id="p5R-bG-01i"/>
                 <constraint firstItem="U7d-a2-RVm" firstAttribute="centerY" secondItem="Ezg-0e-yKY" secondAttribute="centerY" id="rOB-8R-yKw"/>

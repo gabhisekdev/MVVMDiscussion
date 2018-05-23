@@ -10,24 +10,32 @@ import Foundation
 
 class PaginationCellVM {
     
-    private var dataSource = [Place]()
+    // Output
     var numberOfPages = 0
-    var placeTapped: (Place)->()?
+    var title = ""
     
-    init(data: [Place], placeTapped: @escaping (Place)->()) {
+    // Datasource
+    private var dataSource = [Place]()
+    
+    // Events
+    var placeSelected: (Place)->()?
+    
+    init(data: [Place], placeSelected: @escaping (Place)->()) {
         dataSource = data
-        self.placeTapped = placeTapped
+        self.placeSelected = placeSelected
+        configureOutput()
     }
     
     private func configureOutput() {
         numberOfPages = dataSource.count
+        title = "Hot picks only for you"
     }
     
     func viewModelForPlaceView(position: Int)->PlaceViewVM {
         let place = dataSource[position]
         let placeViewVM = PlaceViewVM(place: place)
-        placeViewVM.placesViewTapped = { [weak self] in
-            self?.placeTapped(place)
+        placeViewVM.placesViewSelected = { [weak self] in
+            self?.placeSelected(place)
         }
         return placeViewVM
     }

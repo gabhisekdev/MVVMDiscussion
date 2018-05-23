@@ -11,7 +11,10 @@ import Foundation
 class Helper {
     
     static func getTopPlace(paceType: PlaceType, topPlacesCount: Int) -> [Place] {
-        let places = AppData.sharedData.appData.filter { $0.type == paceType }.sorted { $0.rating! > $1.rating! }
+        let places = AppData.sharedData.allPlaces.filter { $0.type == paceType }.sorted {
+            guard let rating1 = $0.rating, let rating2 = $1.rating else { return false }
+            return rating1 > rating2
+        }
         return Array(places.prefix(topPlacesCount))
     }
     

@@ -8,24 +8,25 @@
 
 import UIKit
 
-class ImageAndLabelCollectionCell: UICollectionViewCell {
+class ImageAndLabelCollectionCell: ReusableCollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
     
-    var viewModel: ImageAndLabelCollectionCellVM! {
-        didSet {
-            setUpUI()
-        }
-    }
+    private var viewModel: ImageAndLabelCollectionCellVM!
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
+    func prepareCell(viewModel: ImageAndLabelCollectionCellVM) {
+        self.viewModel = viewModel
+        setUpUI()
+    }
+    
     private func setUpUI() {
         textLabel.text = viewModel.text
-        imageView.kf.setImage(with: URL(string: viewModel.imageURL), placeholder: UIImage(named : "resturantPlaceHolder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+        imageView.kf.setImage(with: URL(string: viewModel.imageURL), placeholder: UIImage(named : "placeIcon"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
         })
     }
     

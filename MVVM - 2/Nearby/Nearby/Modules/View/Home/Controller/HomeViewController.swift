@@ -10,14 +10,14 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    
     @IBOutlet weak var tableView: UITableView!
     
-    var viewModel = HomeViewModel()
+    private var viewModel = HomeViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareTableView()
+        observeEvents()
     }
     
     override func didReceiveMemoryWarning() {
@@ -28,6 +28,32 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         PaginationCell.registerWithTable(tableView)
         CollectionTableCell.registerWithTable(tableView)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 100
+    }
+    
+    private func observeEvents() {
+        viewModel.reloadTable = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+        
+        viewModel.placeSelected = { [weak self] place in
+            DispatchQueue.main.async {
+                self?.navigateToPlaceDetailScreenWithPlace(place)
+            }
+        }
+        
+        viewModel.categorySelected = { [weak self] type in
+            DispatchQueue.main.async {
+                self?.navigateToPlaceListWithPlaceType(type)
+            }
+        }
+    }
+    
+    @IBAction func refreshButtonPressed(_ sender: Any) {
+        viewModel.refreshScreen()
     }
     
     private func cellForPagingCell(indexPath: IndexPath, viewModel: PaginationCellVM)->PaginationCell {
@@ -46,6 +72,22 @@ class HomeViewController: UIViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.prepareCell(viewModel: viewModel)
         return cell
+    }
+    
+}
+
+// MARK: Routing
+extension HomeViewController {
+    
+    private func navigateToPlaceListWithPlaceType(_ placeType: PlaceType) {
+        let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceListController") as! PlaceListController
+        let placeViewVM = PlaceListVM(placeType: placeType)
+        controller.prepareView(viewModel: placeViewVM)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func navigateToPlaceDetailScreenWithPlace(_ place: Place) {
+        
     }
     
 }

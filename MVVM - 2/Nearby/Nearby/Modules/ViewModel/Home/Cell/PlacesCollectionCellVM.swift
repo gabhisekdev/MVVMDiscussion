@@ -10,37 +10,49 @@ import Foundation
 
 protocol TableCollectionCellVMRepresentable {
     // Output
+    var title: String { get }
     var numberOfItems: Int { get }
     func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM
     
     //Input
-    func cellPressed(indexPath: IndexPath)
+    func cellSelected(indexPath: IndexPath)
     
     // Event
-    var cellTapped: (IndexPath)->() { get }
+    var cellSelected: (IndexPath)->() { get }
  }
+
+struct PlacesCollectionCellModel {
+    
+    var places  = [Place]()
+    var title = ""
+    
+}
 
 class PlacesCollectionCellVM: TableCollectionCellVMRepresentable {
     
     var numberOfItems: Int = 0
-    var cellTapped: (IndexPath)->() = { _ in }
-    private var dataModel: [Place]!
+    var title: String = ""
+    var cellSelected: (IndexPath)->() = { _ in }
+    private var dataModel: PlacesCollectionCellModel!
     private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
     
-    init(dataModel: [Place]) {
+    init(dataModel: PlacesCollectionCellModel) {
         self.dataModel = dataModel
+        prepareCollectionDataSource()
         configureOutput()
     }
     
     private func configureOutput() {
+        title = dataModel.title
         numberOfItems = dataSource.count
     }
     
     private func prepareCollectionDataSource() {
-        // We took 3 iterations as our requirement is to have top 3 places.
-        for i in 0..<3 {
-            let place = dataModel[i]
-            let imageAndLabelDm = ImageAndLabelCollectionCellDataModel(name: place.name ?? "", imageUrl: place.imageURL ?? "")
+        if dataModel.places.count == 0 { return }
+        let totalCount =  dataModel.places.count >= 3 ? 3 : dataModel.places.count
+        for i in 0..<totalCount {
+            let place = dataModel.places[i]
+            let imageAndLabelDm = ImageAndLabelCollectionCellModel(name: place.name ?? "", imageUrl: place.imageURL ?? "")
             dataSource.append(ImageAndLabelCollectionCellVM(dataModel: imageAndLabelDm))
         }
     }
@@ -49,8 +61,8 @@ class PlacesCollectionCellVM: TableCollectionCellVMRepresentable {
         return dataSource[indexPath.row]
     }
     
-    func cellPressed(indexPath: IndexPath) {
-        cellTapped(indexPath)
+    func cellSelected(indexPath: IndexPath) {
+        cellSelected(indexPath)
     }
     
 }
