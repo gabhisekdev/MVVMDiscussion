@@ -19,12 +19,18 @@ class ImageAndLabelCollectionCell: ReusableCollectionViewCell {
         super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        viewModel = nil
+    }
+    
     func prepareCell(viewModel: ImageAndLabelCollectionCellVM) {
         self.viewModel = viewModel
         setUpUI()
     }
     
     private func setUpUI() {
+        guard let viewModel = self.viewModel else { return }
         textLabel.text = viewModel.text
         imageView.kf.setImage(with: URL(string: viewModel.imageURL), placeholder: UIImage(named : "placeIcon"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
         })

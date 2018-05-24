@@ -18,6 +18,7 @@ class PaginationCell: ReusableTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -25,36 +26,47 @@ class PaginationCell: ReusableTableViewCell {
     }
     
     func prepareCell(viewModel: PaginationCellVM) {
+        pagingScrollView.delegate = self
         self.viewModel = viewModel
         setUpUI()
     }
     
     private func setUpUI() {
-        configureScrollView()
         configurePaginationIndicator()
+        // Provide a delay of few secs to let the frames of views to be laid properly.
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.1) {
+            self.configureScrollView()
+        }
         titleLabel.text = viewModel.title
     }
     
     private func configureScrollView() {
-        pagingScrollView.isPagingEnabled = true
-        pagingScrollView.isScrollEnabled = true
-        pagingScrollView.contentSize = CGSize(width: pagingScrollView.frame.size.width * CGFloat(viewModel.numberOfPages), height: pagingScrollView.frame.size.height)
-
-        for i in 0..<viewModel.numberOfPages {
+        for i in 0..<viewModel.numberOfPages{
             let placeView = PlaceView()
-            placeView.frame = CGRect(x: CGFloat(i)*pagingScrollView.frame.width, y: 0, width: pagingScrollView.frame.width, height: pagingScrollView.frame.height)
+            placeView.frame = CGRect(x: pagingScrollView.frame.size.width*CGFloat(i), y: 0, width: pagingScrollView.frame.size.width, height: pagingScrollView.frame.size.height)
             placeView.preparePlaceView(viewModel: viewModel.viewModelForPlaceView(position: i))
             pagingScrollView.addSubview(placeView)
         }
+        pagingScrollView.contentSize = CGSize(width: pagingScrollView.frame.size.width * CGFloat(viewModel.numberOfPages), height: pagingScrollView.frame.size.height)
     }
     
     private func configurePaginationIndicator() {
         paginationIndicator.numberOfPages = viewModel.numberOfPages
+        paginationIndicator.currentPage = 0
+        paginationIndicator.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControlEvents.valueChanged)
+    }
+    
+    @objc private func changePage(sender: AnyObject) -> () {
+        let x = CGFloat(paginationIndicator.currentPage) * pagingScrollView.frame.size.width
+        pagingScrollView.setContentOffset(CGPoint(x:x, y:0), animated: true)
     }
     
 }
 
 // MARK: UIScrollViewDelegate
 extension PaginationCell: UIScrollViewDelegate {
-    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let pageNumber = round(scrollView.contentOffset.x / scrollView.frame.size.width)
+        paginationIndicator.currentPage = Int(pageNumber)
+    }
 }

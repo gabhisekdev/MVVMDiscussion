@@ -17,10 +17,16 @@ class CollectionTableCell: ReusableTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        prepareCollectionView()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        viewModel = nil
     }
     
     func prepareCell(viewModel: TableCollectionCellVMRepresentable) {
@@ -28,10 +34,14 @@ class CollectionTableCell: ReusableTableViewCell {
         setUpUI()
     }
     
-    private func setUpUI() {
+    private func prepareCollectionView() {
+        ImageAndLabelCollectionCell.registerWithCollectionView(collectionView)
         collectionView.dataSource = self
         collectionView.delegate = self
-        ImageAndLabelCollectionCell.registerWithCollectionView(collectionView)
+    }
+    
+    private func setUpUI() {
+        guard let viewModel = self.viewModel else { return }
         titleLabel.text = viewModel.title
     }
     

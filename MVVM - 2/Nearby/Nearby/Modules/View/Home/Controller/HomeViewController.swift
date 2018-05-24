@@ -13,6 +13,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private var viewModel = HomeViewModel()
+    /// Flag to safeguard an one time refresh of screen in case of location update.
+    var isRefreshInProgress = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +38,8 @@ class HomeViewController: UIViewController {
         viewModel.reloadTable = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+                self?.isRefreshInProgress = false
+                ActivityIndicator.sharedIndicator.hideActivityIndicator()
             }
         }
         
@@ -50,28 +54,47 @@ class HomeViewController: UIViewController {
                 self?.navigateToPlaceListWithPlaceType(type)
             }
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.locationAvailable(notification:)), name: Notification.Name("LocationAvailable"), object: nil)
     }
     
     @IBAction func refreshButtonPressed(_ sender: Any) {
+        refreshScreen()
+    }
+    
+    private func refreshScreen() {
+        isRefreshInProgress = true
+        ActivityIndicator.sharedIndicator.displayActivityIndicator(onView: view)
         viewModel.refreshScreen()
     }
     
     private func cellForPagingCell(indexPath: IndexPath, viewModel: PaginationCellVM)->PaginationCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PaginationCell.reuseIdentifier, for: indexPath) as! PaginationCell
+        cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
         return cell
     }
     
-    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: CategoriesCollectionCellVM)->CollectionTableCell {
+    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
+        cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
+        print("IndexPath - \(indexPath.row) \n Cell type - \(viewModel.title) Collection data - \(viewModel.viewModelForCell(indexPath: IndexPath(row: 0, section: 0)).text)")
         return cell
     }
     
-    private func cellForPlacesCell(indexPath: IndexPath, viewModel: PlacesCollectionCellVM)->CollectionTableCell {
+    private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
+        cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
+        print("IndexPath - \(indexPath.row) \n Cell type - \(viewModel.title) Collection data - \(viewModel.viewModelForCell(indexPath: IndexPath(row: 0, section: 0)).text)")
         return cell
+    }
+    
+    @objc private func locationAvailable(notification: Notification) {
+        // No need to refresh the screen automatically if data is already present.
+        guard AppData.sharedData.allPlaces.isEmpty, !isRefreshInProgress else { return }
+        refreshScreen()
     }
     
 }
@@ -105,9 +128,9 @@ extension HomeViewController: UITableViewDataSource {
         case .pagingCell(let model):
             return cellForPagingCell(indexPath: indexPath, viewModel: model)
         case .categoriesCell(model: let model):
-            return cellForCategoriesCell(indexPath: indexPath, viewModel: model as! CategoriesCollectionCellVM)
+            return cellForCategoriesCell(indexPath: indexPath, viewModel: model)
         case .placesCell(model: let model):
-            return cellForPlacesCell(indexPath: indexPath, viewModel: model as! PlacesCollectionCellVM)
+            return cellForPlacesCell(indexPath: indexPath, viewModel: model)
         }
     }
     

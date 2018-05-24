@@ -2,7 +2,7 @@
 //  PlaceTableCell.swift
 //  Nearby
 //
-//  Created by Kuliza-241 on 5/23/18.
+//  Created by Abhisek on 5/23/18.
 //  Copyright © 2018 Abhisek. All rights reserved.
 //
 

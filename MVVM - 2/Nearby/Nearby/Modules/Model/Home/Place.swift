@@ -10,18 +10,18 @@ import Foundation
 import CoreLocation
 
 enum PlaceType: String {
-    case resturant = "resturant"
+    case restaurant = "restaurant"
     case atm = "atm"
     case nightClub = "night_club"
     case cafe = "cafe"
     
     static func allPlaceType() -> [PlaceType] {
-        return [.resturant, .atm, .nightClub, .cafe]
+        return [.restaurant, .atm, .nightClub, .cafe]
     }
     
     func iconUrl() -> String {
         switch self {
-        case .resturant:
+        case .restaurant:
             return "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png"
         case .atm:
             return "https://maps.gstatic.com/mapfiles/place_api/icons/atm-71.png"
@@ -34,8 +34,8 @@ enum PlaceType: String {
     
     func displayText() -> String {
         switch self {
-        case .resturant:
-            return "Resturant"
+        case .restaurant:
+            return "Restaurant"
         case .atm:
             return "ATM"
         case .nightClub:
@@ -47,8 +47,8 @@ enum PlaceType: String {
     
     func homeCellTitleText() -> String {
         switch self {
-        case .resturant:
-            return "Top Resturants nearby"
+        case .restaurant:
+            return "Top Restaurants nearby"
         case .atm:
             return "Closest ATMs nearby"
         case .nightClub:

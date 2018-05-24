@@ -13,4 +13,8 @@ class AppData {
     static let sharedData = AppData()
     var allPlaces = [Place]()
     
+    func resetData() {
+        allPlaces.removeAll()
+    }
+    
 }

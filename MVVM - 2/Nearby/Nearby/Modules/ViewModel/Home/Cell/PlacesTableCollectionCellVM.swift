@@ -1,5 +1,5 @@
 //
-//  PlacesCollectionCellVM.swift
+//  PlacesTableCollectionCellVM.swift
 //  Nearby
 //
 //  Created by Abhisek on 14/05/18.
@@ -21,22 +21,25 @@ protocol TableCollectionCellVMRepresentable {
     var cellSelected: (IndexPath)->() { get }
  }
 
-struct PlacesCollectionCellModel {
+struct PlacesTableCollectionCellModel {
     
     var places  = [Place]()
     var title = ""
-    
+    init(places: [Place], title: String) {
+        self.places = places
+        self.title = title
+    }
 }
 
-class PlacesCollectionCellVM: TableCollectionCellVMRepresentable {
+class PlacesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     
     var numberOfItems: Int = 0
     var title: String = ""
     var cellSelected: (IndexPath)->() = { _ in }
-    private var dataModel: PlacesCollectionCellModel!
+    private var dataModel: PlacesTableCollectionCellModel!
     private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
     
-    init(dataModel: PlacesCollectionCellModel) {
+    init(dataModel: PlacesTableCollectionCellModel) {
         self.dataModel = dataModel
         prepareCollectionDataSource()
         configureOutput()

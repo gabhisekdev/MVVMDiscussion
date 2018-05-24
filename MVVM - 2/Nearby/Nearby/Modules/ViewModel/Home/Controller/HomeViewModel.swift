@@ -35,6 +35,7 @@ class HomeViewModel {
     
     func refreshScreen() {
         tableDataSource.removeAll()
+        AppData.sharedData.resetData()
         self.getAppData(completion: { [weak self] in
             self?.prepareTableDataSource()
             self?.reloadTable()
@@ -55,15 +56,15 @@ class HomeViewModel {
     }
     
     private func prepareTableDataSource() {
-        tableDataSource.append(viewModelForPagingCell())
-        tableDataSource.append(viewModelForCategoriesCell())
-        tableDataSource.append(contentsOf: viewModelForPlaces())
+        tableDataSource.append(cellTypeForPagingCell())
+        tableDataSource.append(cellTypeForCategoriesCell())
+        tableDataSource.append(contentsOf: cellTypeForPlaces())
         numberOfRows = tableDataSource.count
     }
     
-    private func viewModelForPagingCell()->HomeTableCellType {
+    private func cellTypeForPagingCell()->HomeTableCellType {
         var places = [Place]()
-        places.append(contentsOf: Helper.getTopPlace(paceType: .resturant, topPlacesCount: 1))
+        places.append(contentsOf: Helper.getTopPlace(paceType: .restaurant, topPlacesCount: 1))
         places.append(contentsOf: Helper.getTopPlace(paceType: .cafe, topPlacesCount: 1))
         places.append(contentsOf: Helper.getTopPlace(paceType: .nightClub, topPlacesCount: 1))
         places.append(contentsOf: Helper.getTopPlace(paceType: .atm, topPlacesCount: 1))
@@ -74,23 +75,26 @@ class HomeViewModel {
         return HomeTableCellType.pagingCell(model: PaginationCellVM(data: places, placeSelected: placeSelected))
     }
     
-    private func viewModelForCategoriesCell()->HomeTableCellType {
-        let categorieVM = CategoriesCollectionCellVM()
+    private func cellTypeForCategoriesCell()->HomeTableCellType {
+        let categorieVM = CategoriesTableCollectionCellVM()
         categorieVM.cellSelected = { [weak self] indexPath in
             self?.categorySelected(PlaceType.allPlaceType()[indexPath.row])
         }
         return HomeTableCellType.categoriesCell(model: categorieVM)
     }
     
-    private func viewModelForPlaces()->[HomeTableCellType] {
+    private func cellTypeForPlaces()->[HomeTableCellType] {
         var cellTypes = [HomeTableCellType]()
-        for type in PlaceType.allPlaceType() {
+        let allPlaceTypes = PlaceType.allPlaceType()
+        for type in allPlaceTypes {
             let topPlaces = Helper.getTopPlace(paceType: type, topPlacesCount: 3)
-            let resturantCollectionCellVM = PlacesCollectionCellVM(dataModel: PlacesCollectionCellModel(places: topPlaces, title: type.homeCellTitleText()))
-            resturantCollectionCellVM.cellSelected = { [weak self] indexPath in
+            let placeCellVM = PlacesTableCollectionCellVM(dataModel: PlacesTableCollectionCellModel(places: topPlaces, title: type.homeCellTitleText()))
+            placeCellVM.cellSelected = { [weak self] indexPath in
                 self?.placeSelected(topPlaces[indexPath.item])
             }
-            cellTypes.append(HomeTableCellType.placesCell(model: resturantCollectionCellVM))
+            if topPlaces.count > 0 {
+                cellTypes.append(HomeTableCellType.placesCell(model: placeCellVM))
+            }
         }
         return cellTypes
     }

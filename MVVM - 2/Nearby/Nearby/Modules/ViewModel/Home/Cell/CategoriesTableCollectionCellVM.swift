@@ -1,5 +1,5 @@
 //
-//  CategoriesCollectionCellVM.swift
+//  CategoriesTableCollectionCellVM.swift
 //  Nearby
 //
 //  Created by Abhisek on 21/05/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CategoriesCollectionCellVM: TableCollectionCellVMRepresentable {
+class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     
     // Output
     var title: String = ""
@@ -16,6 +16,7 @@ class CategoriesCollectionCellVM: TableCollectionCellVMRepresentable {
     
     // Events
     var cellSelected: (IndexPath)->() = { _ in }
+    
     private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
     
     init() {
