@@ -24,7 +24,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="330" height="63.5"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P7R-2s-20u" customClass="PlaceView" customModule="Nearby" customModuleProvider="target">
-                        <rect key="frame" x="10" y="0.0" width="310" height="58.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="330" height="58.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                 </subviews>
@@ -32,11 +32,11 @@
                 <constraints>
                     <constraint firstItem="q09-Y1-eUg" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="9Gy-Iv-fgv"/>
                     <constraint firstAttribute="bottom" secondItem="q09-Y1-eUg" secondAttribute="bottom" constant="15" id="H3t-9V-nPm"/>
-                    <constraint firstAttribute="trailing" secondItem="P7R-2s-20u" secondAttribute="trailing" constant="10" id="Ogj-V8-xqh"/>
+                    <constraint firstAttribute="trailing" secondItem="P7R-2s-20u" secondAttribute="trailing" id="Ogj-V8-xqh"/>
                     <constraint firstItem="P7R-2s-20u" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Pon-XP-kLf"/>
                     <constraint firstItem="q09-Y1-eUg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="i4m-m2-TYR"/>
                     <constraint firstAttribute="trailing" secondItem="q09-Y1-eUg" secondAttribute="trailing" id="l7o-gg-Nc0"/>
-                    <constraint firstItem="P7R-2s-20u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="oWJ-5T-fIg"/>
+                    <constraint firstItem="P7R-2s-20u" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oWJ-5T-fIg"/>
                     <constraint firstItem="P7R-2s-20u" firstAttribute="height" secondItem="q09-Y1-eUg" secondAttribute="height" multiplier="0.9" constant="1" id="zcC-au-AzE"/>
                 </constraints>
             </tableViewCellContentView>

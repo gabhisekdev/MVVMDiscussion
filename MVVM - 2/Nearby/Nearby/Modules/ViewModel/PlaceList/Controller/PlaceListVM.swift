@@ -37,7 +37,7 @@ class PlaceListVM {
     
     func cellViewModel(indexPath: IndexPath)->PlaceTableCellVM {
         let cellViewModel = dataSource[indexPath.row]
-        placeSelected = cellViewModel.placeSelected
+        cellViewModel.placeSelected = placeSelected
         return cellViewModel
     }
     

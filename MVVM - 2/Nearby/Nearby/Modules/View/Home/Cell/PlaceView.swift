@@ -44,7 +44,7 @@ class PlaceView: UIView {
     
     private func setUpUI() {
         placeNameLabel.text = viewModel.name
-        distanceLabel.text = String(format: "%.2f mi", viewModel.distance)
+        distanceLabel.text = viewModel.distance
         placeImageView.kf.indicatorType = IndicatorType.activity
         placeImageView.kf.setImage(with: URL(string: viewModel.placeImageUrl), placeholder: UIImage(named : "PlacesPlaceholder"), options: nil, progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
         })

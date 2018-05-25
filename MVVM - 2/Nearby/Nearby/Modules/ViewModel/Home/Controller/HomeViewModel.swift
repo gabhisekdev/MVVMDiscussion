@@ -17,11 +17,22 @@ enum HomeTableCellType {
 
 class HomeViewModel {
     
+    /// Data source for the home page table view.
     private var tableDataSource: [HomeTableCellType] = [HomeTableCellType]()
+    
+    // MARK: Input
     var viewDidLoad: ()->() = {}
+    
+    // MARK: Events
+    
+    /// Callback to pass the selected place.
     var placeSelected: (Place)->() = { _ in }
+    /// Callback to pass the selected category.
     var categorySelected: (PlaceType)->() = { _ in }
+    /// Callback to reload the table.
     var reloadTable: ()->() = { }
+    
+    // MARK: Output
     var numberOfRows = 0
     
     init() {
@@ -33,9 +44,9 @@ class HomeViewModel {
         }
     }
     
+    /// Method call to inform the view model to refresh the data.
     func refreshScreen() {
-        tableDataSource.removeAll()
-        AppData.sharedData.resetData()
+        tableDataSource.removeAll() //
         self.getAppData(completion: { [weak self] in
             self?.prepareTableDataSource()
             self?.reloadTable()
@@ -43,18 +54,27 @@ class HomeViewModel {
     }
     
     private func getAppData(completion: @escaping ()->()) {
-        //Show the loader
         let allPlaces = PlaceType.allPlaceType()
         var dataReceivedCount = 0
+        var places = [Place]()
         for placeType in allPlaces {
+            
             PlaceWebService().getPlaceList(placeType: placeType) { (placeList, error) in
-                if placeList != nil { AppData.sharedData.allPlaces+=placeList! }
+                if placeList != nil {
+                    places+=placeList!
+                }
                 dataReceivedCount+=1
-                if dataReceivedCount == allPlaces.count { completion() }
+                if dataReceivedCount == allPlaces.count {
+                    // Reset the app data and populate with new data.
+                    AppData.sharedData.resetData()
+                    AppData.sharedData.allPlaces = places
+                    completion()
+                }
             }
         }
     }
     
+    /// Prepare the tableDataSource
     private func prepareTableDataSource() {
         tableDataSource.append(cellTypeForPagingCell())
         tableDataSource.append(cellTypeForCategoriesCell())
@@ -62,12 +82,12 @@ class HomeViewModel {
         numberOfRows = tableDataSource.count
     }
     
+    /// Provides a pagination cell type for each place type.
     private func cellTypeForPagingCell()->HomeTableCellType {
         var places = [Place]()
-        places.append(contentsOf: Helper.getTopPlace(paceType: .restaurant, topPlacesCount: 1))
-        places.append(contentsOf: Helper.getTopPlace(paceType: .cafe, topPlacesCount: 1))
-        places.append(contentsOf: Helper.getTopPlace(paceType: .nightClub, topPlacesCount: 1))
-        places.append(contentsOf: Helper.getTopPlace(paceType: .atm, topPlacesCount: 1))
+        for placeType in PlaceType.allPlaceType() {
+            places.append(contentsOf: Helper.getTopPlace(paceType: placeType, topPlacesCount: 1))
+        }
         let placeSelected: (Place)->() = { [weak self] place in
             // Show place detail
             self?.placeSelected(place)
@@ -75,6 +95,7 @@ class HomeViewModel {
         return HomeTableCellType.pagingCell(model: PaginationCellVM(data: places, placeSelected: placeSelected))
     }
     
+    /// Provides a placesCell type.
     private func cellTypeForCategoriesCell()->HomeTableCellType {
         let categorieVM = CategoriesTableCollectionCellVM()
         categorieVM.cellSelected = { [weak self] indexPath in
@@ -83,6 +104,7 @@ class HomeViewModel {
         return HomeTableCellType.categoriesCell(model: categorieVM)
     }
     
+    /// Provides a placesCell type.
     private func cellTypeForPlaces()->[HomeTableCellType] {
         var cellTypes = [HomeTableCellType]()
         let allPlaceTypes = PlaceType.allPlaceType()
@@ -99,6 +121,7 @@ class HomeViewModel {
         return cellTypes
     }
     
+    /// Provides the view with appropriate cell type corresponding to an index.
     func cellType(forIndex indexPath: IndexPath)->HomeTableCellType {
         return tableDataSource[indexPath.row]
     }

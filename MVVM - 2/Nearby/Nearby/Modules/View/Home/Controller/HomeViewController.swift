@@ -26,6 +26,7 @@ class HomeViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    /// Prepare the table view.
     private func prepareTableView() {
         tableView.dataSource = self
         PaginationCell.registerWithTable(tableView)
@@ -34,6 +35,7 @@ class HomeViewController: UIViewController {
         tableView.estimatedRowHeight = 100
     }
     
+    /// Function to observe various event call backs from the viewmodel as well as Notifications.
     private func observeEvents() {
         viewModel.reloadTable = { [weak self] in
             DispatchQueue.main.async {
@@ -62,12 +64,14 @@ class HomeViewController: UIViewController {
         refreshScreen()
     }
     
+    /// Refresh the screen when refresh button is pressed.
     private func refreshScreen() {
         isRefreshInProgress = true
         ActivityIndicator.sharedIndicator.displayActivityIndicator(onView: view)
         viewModel.refreshScreen()
     }
     
+    /// Provides a paging cell.
     private func cellForPagingCell(indexPath: IndexPath, viewModel: PaginationCellVM)->PaginationCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PaginationCell.reuseIdentifier, for: indexPath) as! PaginationCell
         cell.selectionStyle = .none
@@ -75,22 +79,23 @@ class HomeViewController: UIViewController {
         return cell
     }
     
+    /// Provides a category cell.
     private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
-        print("IndexPath - \(indexPath.row) \n Cell type - \(viewModel.title) Collection data - \(viewModel.viewModelForCell(indexPath: IndexPath(row: 0, section: 0)).text)")
         return cell
     }
     
+    /// Provides a places cell.
     private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
-        print("IndexPath - \(indexPath.row) \n Cell type - \(viewModel.title) Collection data - \(viewModel.viewModelForCell(indexPath: IndexPath(row: 0, section: 0)).text)")
         return cell
     }
     
+    /// Handler to observe notification events from LocationManager.
     @objc private func locationAvailable(notification: Notification) {
         // No need to refresh the screen automatically if data is already present.
         guard AppData.sharedData.allPlaces.isEmpty, !isRefreshInProgress else { return }
@@ -110,7 +115,10 @@ extension HomeViewController {
     }
     
     private func navigateToPlaceDetailScreenWithPlace(_ place: Place) {
-        
+        let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailController") as! PlaceDetailController
+        let placeViewVM = PlaceDetailVM(place: place)
+        controller.prepareView(viewModel: placeViewVM)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
 }

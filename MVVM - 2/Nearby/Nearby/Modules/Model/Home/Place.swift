@@ -16,7 +16,7 @@ enum PlaceType: String {
     case cafe = "cafe"
     
     static func allPlaceType() -> [PlaceType] {
-        return [.restaurant, .atm, .nightClub, .cafe]
+        return [.atm, .restaurant, .cafe, .nightClub]
     }
     
     func iconUrl() -> String {
@@ -68,20 +68,16 @@ struct Place {
     var type: PlaceType!
     var imageURL: String?
     var rating: Double?
+    var openStatus: Bool?
     
     init(attributes: [String: Any], type: PlaceType) {
         self.type = type
+        self.address = attributes["vicinity"] as? String
+        self.name = attributes["name"] as? String
+        self.rating = attributes["rating"] as? Double
         
-        if let name = attributes["vicinity"] as? String {
-            self.address = name
-        }
-        
-        if let name = attributes["name"] as? String {
-            self.name = name
-        }
-        
-        if let rating = attributes["rating"] as? Double {
-            self.rating = rating
+        if let openingHours = attributes["opening_hours"] as? [String: Any] {
+            self.openStatus = openingHours["open_now"] as? Bool
         }
         
         setLocation(attributes: attributes)

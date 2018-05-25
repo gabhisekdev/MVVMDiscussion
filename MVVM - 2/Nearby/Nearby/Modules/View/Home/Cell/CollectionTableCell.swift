@@ -27,11 +27,13 @@ class CollectionTableCell: ReusableTableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         viewModel = nil
+        collectionView.reloadData()
     }
     
     func prepareCell(viewModel: TableCollectionCellVMRepresentable) {
         self.viewModel = viewModel
         setUpUI()
+        collectionView.reloadData()
     }
     
     private func prepareCollectionView() {

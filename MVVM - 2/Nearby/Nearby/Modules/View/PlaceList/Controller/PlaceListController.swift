@@ -57,7 +57,10 @@ class PlaceListController: UIViewController {
 extension PlaceListController {
     
     private func navigateToPlaceDetailScreenWithPlace(_ place: Place) {
-        
+        let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailController") as! PlaceDetailController
+        let placeViewVM = PlaceDetailVM(place: place)
+        controller.prepareView(viewModel: placeViewVM)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
 }

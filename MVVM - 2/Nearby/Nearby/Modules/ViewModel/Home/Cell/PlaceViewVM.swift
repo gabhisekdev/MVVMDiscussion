@@ -13,7 +13,7 @@ protocol PlaceViewVMRepresentable {
     // Output
     var placeImageUrl: String { get }
     var name: String { get }
-    var distance: Double { get }
+    var distance: String { get }
     
     // Input
     func placesViewPressed()
@@ -27,7 +27,7 @@ class PlaceViewVM: PlaceViewVMRepresentable {
     // Output
     var placeImageUrl: String = ""
     var name: String = ""
-    var distance: Double = 0.0
+    var distance: String = ""
     
     // Data Model
     private var place: Place!
@@ -37,11 +37,15 @@ class PlaceViewVM: PlaceViewVMRepresentable {
     
     init(place: Place) {
         self.place = place
+        configureOutput()
+    }
+    
+    private func configureOutput() {
         placeImageUrl = place.imageURL ?? ""
-        name = place.name!
+        name = place.name ?? ""
         let currentLocation = CLLocation(latitude: LocationManager.sharedManager.latitude, longitude: LocationManager.sharedManager.longitude)
         guard let distance = place.location?.distance(from: currentLocation) else { return }
-        self.distance = distance/1609.344
+        self.distance = String(format: "%.2f mi", distance/1609.344)
     }
     
     func placesViewPressed() {

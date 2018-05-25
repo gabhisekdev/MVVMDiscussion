@@ -22,7 +22,6 @@ protocol TableCollectionCellVMRepresentable {
  }
 
 struct PlacesTableCollectionCellModel {
-    
     var places  = [Place]()
     var title = ""
     init(places: [Place], title: String) {
