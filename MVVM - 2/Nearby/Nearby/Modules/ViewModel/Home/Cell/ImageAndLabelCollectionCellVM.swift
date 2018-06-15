@@ -1,5 +1,5 @@
 //
-//  ImageAndLabelCollectionCellViewModel.swift
+//  ImageAndLabelCollectionCellVM.swift
 //  Nearby
 //
 //  Created by Abhisek on 20/05/18.
@@ -13,7 +13,7 @@ struct ImageAndLabelCollectionCellModel {
     var imageUrl: String = ""
 }
 
-class ImageAndLabelCollectionCellViewModel {
+class ImageAndLabelCollectionCellVM {
     
     private var dataModel: ImageAndLabelCollectionCellModel!
     

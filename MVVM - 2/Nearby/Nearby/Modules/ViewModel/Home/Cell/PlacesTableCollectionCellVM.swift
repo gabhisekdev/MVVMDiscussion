@@ -1,5 +1,5 @@
 //
-//  PlacesTableCollectionCellViewModel.swift
+//  PlacesTableCollectionCellVM.swift
 //  Nearby
 //
 //  Created by Abhisek on 14/05/18.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol TableCollectionCellViewModelRepresentable {
+protocol TableCollectionCellVMRepresentable {
     // Output
     var title: String { get }
     var numberOfItems: Int { get }
-    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellViewModel
+    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM
     
     //Input
     func cellSelected(indexPath: IndexPath)
@@ -30,13 +30,13 @@ struct PlacesTableCollectionCellModel {
     }
 }
 
-class PlacesTableCollectionCellViewModel: TableCollectionCellViewModelRepresentable {
+class PlacesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     
     var numberOfItems: Int = 0
     var title: String = ""
     var cellSelected: (IndexPath)->() = { _ in }
     private var dataModel: PlacesTableCollectionCellModel!
-    private var dataSource: [ImageAndLabelCollectionCellViewModel] = [ImageAndLabelCollectionCellViewModel]()
+    private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
     
     init(dataModel: PlacesTableCollectionCellModel) {
         self.dataModel = dataModel
@@ -55,11 +55,11 @@ class PlacesTableCollectionCellViewModel: TableCollectionCellViewModelRepresenta
         for i in 0..<totalCount {
             let place = dataModel.places[i]
             let imageAndLabelDm = ImageAndLabelCollectionCellModel(name: place.name ?? "", imageUrl: place.imageURL ?? "")
-            dataSource.append(ImageAndLabelCollectionCellViewModel(dataModel: imageAndLabelDm))
+            dataSource.append(ImageAndLabelCollectionCellVM(dataModel: imageAndLabelDm))
         }
     }
     
-    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellViewModel {
+    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM {
         return dataSource[indexPath.row]
     }
     

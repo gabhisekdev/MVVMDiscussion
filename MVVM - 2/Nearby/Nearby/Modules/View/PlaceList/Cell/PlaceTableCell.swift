@@ -8,21 +8,21 @@
 
 import UIKit
 
-class PlaceTableCellViewModel {
+class PlaceTableCellVM {
     
     private var place: Place!
     
-    var placeViewViewModel: PlaceViewViewModel!
+    var placeViewVM: PlaceViewVM!
     var placeSelected: (Place)->() = { _ in }
     
     init(place: Place) {
         self.place = place
-        preparePlaceViewViewModel()
+        preparePlaceViewVM()
     }
     
-    private func preparePlaceViewViewModel() {
-        placeViewViewModel = PlaceViewViewModel(place: place)
-        placeViewViewModel.placesViewSelected = { [weak self] in
+    private func preparePlaceViewVM() {
+        placeViewVM = PlaceViewVM(place: place)
+        placeViewVM.placesViewSelected = { [weak self] in
             guard let _self = self else { return }
             _self.placeSelected(_self.place)
         }
@@ -34,7 +34,7 @@ class PlaceTableCell: ReusableTableViewCell {
 
     @IBOutlet weak var placeView: PlaceView!    
     
-    var viewModel: PlaceTableCellViewModel!
+    var viewModel: PlaceTableCellVM!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,9 +44,9 @@ class PlaceTableCell: ReusableTableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func prepareCell(viewModel: PlaceTableCellViewModel) {
+    func prepareCell(viewModel: PlaceTableCellVM) {
         self.viewModel = viewModel
-        placeView.preparePlaceView(viewModel: viewModel.placeViewViewModel)
+        placeView.preparePlaceView(viewModel: viewModel.placeViewVM)
     }
     
 }

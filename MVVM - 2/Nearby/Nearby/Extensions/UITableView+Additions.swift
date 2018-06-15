@@ -1,6 +1,6 @@
 //
 //  UICollectionView+Additions.swift
-//  DemoMVViewModel
+//  DemoMVVM
 //
 //  Created by Abhisek on 26/04/18.
 //  Copyright © 2018 Abhisek. All rights reserved.
