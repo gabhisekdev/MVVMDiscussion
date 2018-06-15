@@ -72,7 +72,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Provides a paging cell.
-    private func cellForPagingCell(indexPath: IndexPath, viewModel: PaginationCellVM)->PaginationCell {
+    private func cellForPagingCell(indexPath: IndexPath, viewModel: PaginationCellViewModel)->PaginationCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PaginationCell.reuseIdentifier, for: indexPath) as! PaginationCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
@@ -80,7 +80,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Provides a category cell.
-    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
+    private func cellForCategoriesCell(indexPath: IndexPath, viewModel: TableCollectionCellViewModelRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
@@ -88,7 +88,7 @@ class HomeViewController: UIViewController {
     }
     
     /// Provides a places cell.
-    private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellVMRepresentable)->CollectionTableCell {
+    private func cellForPlacesCell(indexPath: IndexPath, viewModel: TableCollectionCellViewModelRepresentable)->CollectionTableCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableCell.reuseIdentifier, for: indexPath) as! CollectionTableCell
         cell.selectionStyle = .none
         cell.prepareCell(viewModel: viewModel)
@@ -109,15 +109,15 @@ extension HomeViewController {
     
     private func navigateToPlaceListWithPlaceType(_ placeType: PlaceType) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceListController") as! PlaceListController
-        let placeViewVM = PlaceListVM(placeType: placeType)
-        controller.prepareView(viewModel: placeViewVM)
+        let placeViewViewModel = PlaceListViewModel(placeType: placeType)
+        controller.prepareView(viewModel: placeViewViewModel)
         navigationController?.pushViewController(controller, animated: true)
     }
     
     private func navigateToPlaceDetailScreenWithPlace(_ place: Place) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailController") as! PlaceDetailController
-        let placeViewVM = PlaceDetailVM(place: place)
-        controller.prepareView(viewModel: placeViewVM)
+        let placeViewViewModel = PlaceDetailViewModel(place: place)
+        controller.prepareView(viewModel: placeViewViewModel)
         navigationController?.pushViewController(controller, animated: true)
     }
     

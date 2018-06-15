@@ -17,7 +17,7 @@ class PlaceDetailController: UIViewController {
     @IBOutlet weak var openStatusLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    private var viewModel: PlaceDetailVM!
+    private var viewModel: PlaceDetailViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class PlaceDetailController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func prepareView(viewModel: PlaceDetailVM) {
+    func prepareView(viewModel: PlaceDetailViewModel) {
         self.viewModel = viewModel
     }
     

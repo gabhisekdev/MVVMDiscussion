@@ -1,5 +1,5 @@
 //
-//  PlaceDetailVM.swift
+//  PlaceDetailViewModel.swift
 //  Nearby
 //
 //  Created by Kuliza-241 on 5/25/18.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-class PlaceDetailVM {
+class PlaceDetailViewModel {
     
     // MARK: Output
     var title = ""

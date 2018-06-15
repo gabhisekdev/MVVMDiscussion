@@ -16,7 +16,7 @@ class PlaceView: UIView {
     @IBOutlet weak var placeNameLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
     
-    private var viewModel: PlaceViewVM!
+    private var viewModel: PlaceViewViewModel!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +37,7 @@ class PlaceView: UIView {
         addSubview(view)
     }
     
-    func preparePlaceView(viewModel: PlaceViewVM) {
+    func preparePlaceView(viewModel: PlaceViewViewModel) {
         self.viewModel = viewModel
         setUpUI()
     }

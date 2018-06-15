@@ -1,5 +1,5 @@
 //
-//  PlacesTableCollectionCellVM.swift
+//  PlacesTableCollectionCellViewModel.swift
 //  Nearby
 //
 //  Created by Abhisek on 14/05/18.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol TableCollectionCellVMRepresentable {
+protocol TableCollectionCellViewModelRepresentable {
     // Output
     var title: String { get }
     var numberOfItems: Int { get }
-    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM
+    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellViewModel
     
     //Input
     func cellSelected(indexPath: IndexPath)
@@ -30,13 +30,13 @@ struct PlacesTableCollectionCellModel {
     }
 }
 
-class PlacesTableCollectionCellVM: TableCollectionCellVMRepresentable {
+class PlacesTableCollectionCellViewModel: TableCollectionCellViewModelRepresentable {
     
     var numberOfItems: Int = 0
     var title: String = ""
     var cellSelected: (IndexPath)->() = { _ in }
     private var dataModel: PlacesTableCollectionCellModel!
-    private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
+    private var dataSource: [ImageAndLabelCollectionCellViewModel] = [ImageAndLabelCollectionCellViewModel]()
     
     init(dataModel: PlacesTableCollectionCellModel) {
         self.dataModel = dataModel
@@ -55,11 +55,11 @@ class PlacesTableCollectionCellVM: TableCollectionCellVMRepresentable {
         for i in 0..<totalCount {
             let place = dataModel.places[i]
             let imageAndLabelDm = ImageAndLabelCollectionCellModel(name: place.name ?? "", imageUrl: place.imageURL ?? "")
-            dataSource.append(ImageAndLabelCollectionCellVM(dataModel: imageAndLabelDm))
+            dataSource.append(ImageAndLabelCollectionCellViewModel(dataModel: imageAndLabelDm))
         }
     }
     
-    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM {
+    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellViewModel {
         return dataSource[indexPath.row]
     }
     

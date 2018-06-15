@@ -14,7 +14,7 @@ class PaginationCell: ReusableTableViewCell {
     @IBOutlet weak var pagingScrollView: UIScrollView!
     @IBOutlet weak var paginationIndicator: UIPageControl!
     
-    private var viewModel: PaginationCellVM!
+    private var viewModel: PaginationCellViewModel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +25,7 @@ class PaginationCell: ReusableTableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func prepareCell(viewModel: PaginationCellVM) {
+    func prepareCell(viewModel: PaginationCellViewModel) {
         pagingScrollView.delegate = self
         self.viewModel = viewModel
         setUpUI()

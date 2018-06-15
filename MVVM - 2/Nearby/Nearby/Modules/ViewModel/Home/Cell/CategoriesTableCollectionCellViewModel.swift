@@ -1,5 +1,5 @@
 //
-//  CategoriesTableCollectionCellVM.swift
+//  CategoriesTableCollectionCellViewModel.swift
 //  Nearby
 //
 //  Created by Abhisek on 21/05/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
+class CategoriesTableCollectionCellViewModel: TableCollectionCellViewModelRepresentable {
     
     // Output
     var title: String = ""
@@ -17,7 +17,7 @@ class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     // Events
     var cellSelected: (IndexPath)->() = { _ in }
     
-    private var dataSource: [ImageAndLabelCollectionCellVM] = [ImageAndLabelCollectionCellVM]()
+    private var dataSource: [ImageAndLabelCollectionCellViewModel] = [ImageAndLabelCollectionCellViewModel]()
     
     init() {
         prepareDataSource()
@@ -26,7 +26,7 @@ class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
     
     private func prepareDataSource() {
         for type in PlaceType.allPlaceType() {
-            dataSource.append(ImageAndLabelCollectionCellVM(dataModel: ImageAndLabelCollectionCellModel(name: type.displayText(), imageUrl: type.iconUrl())))
+            dataSource.append(ImageAndLabelCollectionCellViewModel(dataModel: ImageAndLabelCollectionCellModel(name: type.displayText(), imageUrl: type.iconUrl())))
         }
     }
     
@@ -35,7 +35,7 @@ class CategoriesTableCollectionCellVM: TableCollectionCellVMRepresentable {
         numberOfItems = dataSource.count
     }
     
-    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellVM {
+    func viewModelForCell(indexPath: IndexPath) -> ImageAndLabelCollectionCellViewModel {
        return dataSource[indexPath.item]
     }
     

@@ -13,7 +13,7 @@ class ImageAndLabelCollectionCell: ReusableCollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var textLabel: UILabel!
     
-    private var viewModel: ImageAndLabelCollectionCellVM!
+    private var viewModel: ImageAndLabelCollectionCellViewModel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,7 +24,7 @@ class ImageAndLabelCollectionCell: ReusableCollectionViewCell {
         viewModel = nil
     }
     
-    func prepareCell(viewModel: ImageAndLabelCollectionCellVM) {
+    func prepareCell(viewModel: ImageAndLabelCollectionCellViewModel) {
         self.viewModel = viewModel
         setUpUI()
     }

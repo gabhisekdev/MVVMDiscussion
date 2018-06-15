@@ -10,9 +10,9 @@ import Foundation
 
 /// Enum to distinguish different home cell types
 enum HomeTableCellType {
-    case pagingCell(model: PaginationCellVM)
-    case categoriesCell(model: TableCollectionCellVMRepresentable)
-    case placesCell(model: TableCollectionCellVMRepresentable)
+    case pagingCell(model: PaginationCellViewModel)
+    case categoriesCell(model: TableCollectionCellViewModelRepresentable)
+    case placesCell(model: TableCollectionCellViewModelRepresentable)
 }
 
 class HomeViewModel {
@@ -92,16 +92,16 @@ class HomeViewModel {
             // Show place detail
             self?.placeSelected(place)
         }
-        return HomeTableCellType.pagingCell(model: PaginationCellVM(data: places, placeSelected: placeSelected))
+        return HomeTableCellType.pagingCell(model: PaginationCellViewModel(data: places, placeSelected: placeSelected))
     }
     
     /// Provides a placesCell type.
     private func cellTypeForCategoriesCell()->HomeTableCellType {
-        let categorieVM = CategoriesTableCollectionCellVM()
-        categorieVM.cellSelected = { [weak self] indexPath in
+        let categorieViewModel = CategoriesTableCollectionCellViewModel()
+        categorieViewModel.cellSelected = { [weak self] indexPath in
             self?.categorySelected(PlaceType.allPlaceType()[indexPath.row])
         }
-        return HomeTableCellType.categoriesCell(model: categorieVM)
+        return HomeTableCellType.categoriesCell(model: categorieViewModel)
     }
     
     /// Provides a placesCell type.
@@ -110,12 +110,12 @@ class HomeViewModel {
         let allPlaceTypes = PlaceType.allPlaceType()
         for type in allPlaceTypes {
             let topPlaces = Helper.getTopPlace(paceType: type, topPlacesCount: 3)
-            let placeCellVM = PlacesTableCollectionCellVM(dataModel: PlacesTableCollectionCellModel(places: topPlaces, title: type.homeCellTitleText()))
-            placeCellVM.cellSelected = { [weak self] indexPath in
+            let placeCellViewModel = PlacesTableCollectionCellViewModel(dataModel: PlacesTableCollectionCellModel(places: topPlaces, title: type.homeCellTitleText()))
+            placeCellViewModel.cellSelected = { [weak self] indexPath in
                 self?.placeSelected(topPlaces[indexPath.item])
             }
             if topPlaces.count > 0 {
-                cellTypes.append(HomeTableCellType.placesCell(model: placeCellVM))
+                cellTypes.append(HomeTableCellType.placesCell(model: placeCellViewModel))
             }
         }
         return cellTypes

@@ -1,5 +1,5 @@
 //
-//  PlaceListVM.swift
+//  PlaceListViewModel.swift
 //  Nearby
 //
 //  Created by Abhisek on 5/23/18.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-class PlaceListVM {
+class PlaceListViewModel {
     
     // Output
     var numberOfRows = 0
     var title = ""
     
     private var placeType: PlaceType!
-    private var dataSource = [PlaceTableCellVM]()
+    private var dataSource = [PlaceTableCellViewModel]()
     
     // Event
     var placeSelected: (Place)->() = { _ in }
@@ -27,7 +27,7 @@ class PlaceListVM {
     }
     
     private func prepareTableDataSource() {
-        dataSource = AppData.sharedData.allPlaces.filter { $0.type == placeType }.map {  return PlaceTableCellVM(place: $0) }
+        dataSource = AppData.sharedData.allPlaces.filter { $0.type == placeType }.map {  return PlaceTableCellViewModel(place: $0) }
     }
     
     private func configureOutput() {
@@ -35,7 +35,7 @@ class PlaceListVM {
         numberOfRows = dataSource.count
     }
     
-    func cellViewModel(indexPath: IndexPath)->PlaceTableCellVM {
+    func cellViewModel(indexPath: IndexPath)->PlaceTableCellViewModel {
         let cellViewModel = dataSource[indexPath.row]
         cellViewModel.placeSelected = placeSelected
         return cellViewModel

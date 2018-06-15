@@ -13,7 +13,7 @@ class CollectionTableCell: ReusableTableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var viewModel: TableCollectionCellVMRepresentable!
+    var viewModel: TableCollectionCellViewModelRepresentable!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,7 +30,7 @@ class CollectionTableCell: ReusableTableViewCell {
         collectionView.reloadData()
     }
     
-    func prepareCell(viewModel: TableCollectionCellVMRepresentable) {
+    func prepareCell(viewModel: TableCollectionCellViewModelRepresentable) {
         self.viewModel = viewModel
         setUpUI()
         collectionView.reloadData()

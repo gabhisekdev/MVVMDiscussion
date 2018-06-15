@@ -13,7 +13,7 @@ class PlaceListController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    private var viewModel: PlaceListVM!
+    private var viewModel: PlaceListViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class PlaceListController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func prepareView(viewModel: PlaceListVM) {
+    func prepareView(viewModel: PlaceListViewModel) {
         self.viewModel = viewModel
         observeEvents()
     }
@@ -58,8 +58,8 @@ extension PlaceListController {
     
     private func navigateToPlaceDetailScreenWithPlace(_ place: Place) {
         let controller = storyboard?.instantiateViewController(withIdentifier: "PlaceDetailController") as! PlaceDetailController
-        let placeViewVM = PlaceDetailVM(place: place)
-        controller.prepareView(viewModel: placeViewVM)
+        let placeViewViewModel = PlaceDetailViewModel(place: place)
+        controller.prepareView(viewModel: placeViewViewModel)
         navigationController?.pushViewController(controller, animated: true)
     }
     

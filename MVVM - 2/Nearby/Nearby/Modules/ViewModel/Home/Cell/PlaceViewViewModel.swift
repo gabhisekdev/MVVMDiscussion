@@ -1,5 +1,5 @@
 //
-//  PlaceViewVM.swift
+//  PlaceViewViewModel.swift
 //  Nearby
 //
 //  Created by Abhisek on 14/05/18.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-protocol PlaceViewVMRepresentable {
+protocol PlaceViewViewModelRepresentable {
     // Output
     var placeImageUrl: String { get }
     var name: String { get }
@@ -23,7 +23,7 @@ protocol PlaceViewVMRepresentable {
 }
 
 
-class PlaceViewVM: PlaceViewVMRepresentable {
+class PlaceViewViewModel: PlaceViewViewModelRepresentable {
     // Output
     var placeImageUrl: String = ""
     var name: String = ""

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PaginationCellVM {
+class PaginationCellViewModel {
     
     // Output
     var numberOfPages = 0
@@ -31,13 +31,13 @@ class PaginationCellVM {
         title = "Hot picks only for you"
     }
     
-    func viewModelForPlaceView(position: Int)->PlaceViewVM {
+    func viewModelForPlaceView(position: Int)->PlaceViewViewModel {
         let place = dataSource[position]
-        let placeViewVM = PlaceViewVM(place: place)
-        placeViewVM.placesViewSelected = { [weak self] in
+        let placeViewViewModel = PlaceViewViewModel(place: place)
+        placeViewViewModel.placesViewSelected = { [weak self] in
             self?.placeSelected(place)
         }
-        return placeViewVM
+        return placeViewViewModel
     }
     
 }
