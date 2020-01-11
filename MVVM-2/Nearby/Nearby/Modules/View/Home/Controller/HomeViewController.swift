@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
         tableView.dataSource = self
         PaginationCell.registerWithTable(tableView)
         CollectionTableCell.registerWithTable(tableView)
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
     }
     

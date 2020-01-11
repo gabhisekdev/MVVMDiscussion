@@ -477,7 +477,6 @@
 				930FE4A820A088E5009924CA /* Frameworks */,
 				930FE4A920A088E5009924CA /* Resources */,
 				FDBCB99738645A9CD0517871 /* [CP] Embed Pods Frameworks */,
-				5C0E102CD6228B09378143EE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -496,8 +495,6 @@
 				930FE4BB20A088E7009924CA /* Sources */,
 				930FE4BC20A088E7009924CA /* Frameworks */,
 				930FE4BD20A088E7009924CA /* Resources */,
-				0C30DC580172EA95EB4B20AA /* [CP] Embed Pods Frameworks */,
-				E19F9D512263E37943121271 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -517,8 +514,6 @@
 				930FE4C620A088E7009924CA /* Sources */,
 				930FE4C720A088E7009924CA /* Frameworks */,
 				930FE4C820A088E7009924CA /* Resources */,
-				019F043798DC3513E87EEF20 /* [CP] Embed Pods Frameworks */,
-				DC666CD91EA339D82D3E2BA8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -542,13 +537,16 @@
 				TargetAttributes = {
 					930FE4AA20A088E5009924CA = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1120;
 					};
 					930FE4BE20A088E7009924CA = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1120;
 						TestTargetID = 930FE4AA20A088E5009924CA;
 					};
 					930FE4C920A088E7009924CA = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1120;
 						TestTargetID = 930FE4AA20A088E5009924CA;
 					};
 				};
@@ -606,36 +604,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		019F043798DC3513E87EEF20 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NearbyUITests/Pods-NearbyUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		0C30DC580172EA95EB4B20AA /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NearbyTests/Pods-NearbyTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		0E433448BEE59B53B011A928 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -672,21 +640,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5C0E102CD6228B09378143EE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Nearby/Pods-Nearby-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		7F8829675B3688C9A3421CFD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -705,52 +658,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DC666CD91EA339D82D3E2BA8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NearbyUITests/Pods-NearbyUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E19F9D512263E37943121271 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NearbyTests/Pods-NearbyTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FDBCB99738645A9CD0517871 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Nearby/Pods-Nearby-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nearby/Pods-Nearby-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Nearby/Pods-Nearby-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Nearby/Pods-Nearby-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Nearby/Pods-Nearby-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -971,7 +893,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = abhisek.Nearby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -992,7 +914,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = abhisek.Nearby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1012,7 +934,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kuliza.NearbyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nearby.app/Nearby";
 			};
@@ -1033,7 +955,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kuliza.NearbyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nearby.app/Nearby";
 			};
@@ -1053,7 +975,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kuliza.NearbyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Nearby;
 			};
@@ -1073,7 +995,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = kuliza.NearbyUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Nearby;
 			};

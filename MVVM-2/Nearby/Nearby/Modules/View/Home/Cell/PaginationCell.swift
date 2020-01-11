@@ -53,7 +53,7 @@ class PaginationCell: ReusableTableViewCell {
     private func configurePaginationIndicator() {
         paginationIndicator.numberOfPages = viewModel.numberOfPages
         paginationIndicator.currentPage = 0
-        paginationIndicator.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControlEvents.valueChanged)
+        paginationIndicator.addTarget(self, action: #selector(self.changePage(sender:)), for: UIControl.Event.valueChanged)
     }
     
     @objc private func changePage(sender: AnyObject) -> () {
